@@ -8,8 +8,8 @@ namespace SnakeAndLadder
         public const int NO_PLAY = 0;
         public const int LADDER = 1;
         public const int SNAKE = 2;
-        public const int StartPosition = 0;
-        public const int WinningPosition = 100;
+        public const int START_POSITION = 0;
+        public const int WINNING_POSITION = 100;
         /// <summary>
         /// RollsDie generates number from 1 to 6.
         /// </summary>
@@ -58,7 +58,7 @@ namespace SnakeAndLadder
             int numberOnDie = rollDie();
             Console.WriteLine("Welcome to Snake and Ladder Problem!");
             //While Checks player reaches winning position 100.
-            while (currentPosition < WinningPosition)
+            while (currentPosition < WINNING_POSITION)
             {
                 numberOnDie = rollDie();
                 count++;
@@ -67,6 +67,10 @@ namespace SnakeAndLadder
                 if (nextPosition < 0)
                 {
                     currentPosition = 0;
+                }
+                else if (nextPosition > WINNING_POSITION)
+                {
+                    nextPosition = currentPosition;                
                 }
                 else
                 {
