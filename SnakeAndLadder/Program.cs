@@ -5,9 +5,11 @@ namespace SnakeAndLadder
     class Program
     {
         //Constants
-        public const int NoPlay = 0;
-        public const int Ladder = 1;
-        public const int Snake = 2;
+        public const int NO_PLAY = 0;
+        public const int LADDER = 1;
+        public const int SNAKE = 2;
+        public const int StartPosition = 0;
+        public const int WinningPosition = 100;
         /// <summary>
         /// RollsDie generates number from 1 to 6.
         /// </summary>
@@ -32,16 +34,13 @@ namespace SnakeAndLadder
             //Options for player.
             switch (optionCheck)
             {
-                case NoPlay:
-                    Console.WriteLine("No play!");
+                case NO_PLAY:                    
                     break;
-                case Ladder:
-                    addNumber = numberOnDie;
-                    Console.WriteLine("Ladder, so moving forward!");
+                case LADDER:
+                    addNumber = numberOnDie;                    
                     break;
-                case Snake:
-                    addNumber = -numberOnDie;
-                    Console.WriteLine("Snake, so moving backward!");
+                case SNAKE:
+                    addNumber = -numberOnDie;                    
                     break;
             }
             return addNumber;
@@ -54,12 +53,28 @@ namespace SnakeAndLadder
         {
             //Variable
             int currentPosition = 0;
-            Console.WriteLine("Welcome to Snake and Ladder Problem!");            
-            Console.WriteLine("Starting position: " + currentPosition);
+            int nextPosition;
+            int count = 0;
             int numberOnDie = rollDie();
-            Console.WriteLine("Number on the die rolled is : " + numberOnDie);
-            Console.WriteLine("New position is: " + newPosition(numberOnDie));
-            Console.ReadKey();
+            Console.WriteLine("Welcome to Snake and Ladder Problem!");
+            //While Checks player reaches winning position 100.
+            while (currentPosition < WinningPosition)
+            {
+                numberOnDie = rollDie();
+                count++;
+                int addNumber = newPosition(numberOnDie);
+                nextPosition = currentPosition + addNumber;
+                if (nextPosition < 0)
+                {
+                    currentPosition = 0;
+                }
+                else
+                {
+                    currentPosition = nextPosition;
+                }
+            }            
+            Console.WriteLine("Number of times the die rolled is : " + count);
+            Console.WriteLine("Final position is: " + currentPosition);            
         }
     }
 }
